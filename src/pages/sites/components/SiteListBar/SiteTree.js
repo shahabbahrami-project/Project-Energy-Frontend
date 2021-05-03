@@ -9,13 +9,14 @@ import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';
 import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
 import locationIcon from "./location.svg";
 import cityIcon from "./city.svg";
 import ButtonBase from '@material-ui/core/ButtonBase';

@@ -4,27 +4,19 @@ import {
   CircularProgress,
   Typography,
   Button,
-  Tabs,
-  Tab,
-  TextField,
   IconButton,
   Fade,
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import classnames from "classnames";
-
 // styles
 import useStyles from "./styles";
-
 // background
 import background from "./images/passwordbg.svg";
-
-
 // context
 import { useUserDispatch, loginUser } from "../../context/UserContext";
 import { toast } from "react-toastify";
 import { emailConfirmApi, loginApi, passChangeApi, registerApi } from "../../api/api_login";
-
+import blob from "./images/blob.svg";
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -153,7 +145,6 @@ function Login(props) {
           history.push('/app/sites')
         }, 2000);
       } else {
-        // dispatch({ type: "LOGIN_FAILURE" });
         setError(true);
         setIsLoading(false);
         return toast.error(EnterUnsuccessfulMessage);
@@ -188,7 +179,6 @@ function Login(props) {
       return toast.warn(error)
 
 
-
     passChangeApi(newpass, (isOk, data) => {
       if (!isOk)
         return toast.error("Security Code is not Correct!");
@@ -210,8 +200,8 @@ function Login(props) {
         <img src={background} alt="logo" />
         <Typography className={classes.logotypeText}></Typography>
       </div>
-      <div className={classes.formContainer}>
-        <div className={classes.form}>
+      <div className={classes.formContainer} style={{ backgroundImage: `url(${blob})`, backgroundSize: 'cover' }}>
+        <div className={classes.form} >
           {activeTabId === 0 && (
             <React.Fragment>
               <Typography variant="h1" className={classes.greeting}>
@@ -225,49 +215,32 @@ function Login(props) {
                   Check Your Username and Password
                 </Typography>
               </Fade>
-              <TextField
-                id="email"
-                variant="outlined"
-                error={usernameLoginBool}
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
 
-                }}
-                value={loginValue}
-                error={passwordLoginBool}
-                onChange={e => setLoginValue(e.target.value)}
-                margin="normal"
-                label="Email"
-                type="email"
-                fullWidth
-              />
-              {/* <TextField
-                id="password"
-                variant="outlined"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
 
-                value={passwordValue}
-                onChange={e => setPasswordValue(e.target.value)}
-                margin="normal"
-                label="Password"
-                type="password"
-                fullWidth
-              /> */}
-              <FormControl style={{ width: '100%', marginTop: '1.7rem' }} variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+
+              <FormControl className={classes.textField0} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password" classes={{ root: classes.textField1, shrink: classes.textField3 }} >Email</InputLabel>
                 <OutlinedInput
+                  classes={{ root: classes.textField2 }}
+                  id="outlined-adornment-email"
+                  type={'text'}
+                  value={loginValue}
+                  error={passwordLoginBool}
+                  onChange={e => setLoginValue(e.target.value)}
+                  label={"Email"}
+
+                />
+              </FormControl>
+
+              <FormControl className={classes.textField0} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password" classes={{ root: classes.textField1, shrink: classes.textField3 }}>Password</InputLabel>
+                <OutlinedInput
+                  classes={{ root: classes.textField2 }}
                   id="outlined-adornment-password"
                   type={showPassword ? 'text' : 'password'}
                   value={passwordValue}
                   onChange={e => setPasswordValue(e.target.value)}
+                  label={"Password"}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -276,11 +249,10 @@ function Login(props) {
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                       >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                        {showPassword ? <Visibility style={{ height: '1.4vw', width: '1.4vw' }} /> : <VisibilityOff style={{ height: '1.4vw', width: '1.4vw' }} />}
                       </IconButton>
                     </InputAdornment>
                   }
-                  labelWidth={70}
                 />
 
               </FormControl>
@@ -290,30 +262,32 @@ function Login(props) {
                 {isLoading ? (
                   <CircularProgress size={26} className={classes.loginLoader} />
                 ) : (
-                    <Button
-                      disabled={
-                        loginValue.length === 0 || passwordValue.length === 0
-                      }
-                      onClick={() => handleLogin(
-                        userDispatch,
-                        loginValue,
-                        passwordValue,
-                        props.history,
-                        setIsLoading,
-                        setError,
-                      )
-                      }
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                    >
-                      Login
-                    </Button>
-                  )}
+                  <Button
+                    classes={{ root: classes.loginButton }}
+
+                    disabled={
+                      loginValue.length === 0 || passwordValue.length === 0
+                    }
+                    onClick={() => handleLogin(
+                      userDispatch,
+                      loginValue,
+                      passwordValue,
+                      props.history,
+                      setIsLoading,
+                      setError,
+                    )
+                    }
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                  >
+                    Login
+                  </Button>
+                )}
                 <Button
                   color="primary"
                   size="large"
-                  className={classes.forgetButton}
+                  classes={{ root: classes.forgetButton }}
                   onClick={(e) => handleChangePassword_Step1(e)}
                 >
                   Forget Password
@@ -331,49 +305,48 @@ function Login(props) {
               </Typography>
               <Fade in={error}>
                 <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong with your Email address
+                  Your email address is not found!
                 </Typography>
               </Fade>
 
-              <TextField
-                id="email2"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={emailPassChange}
-                onChange={e => setEmailPassChange(e.target.value)}
-                margin="normal"
-                variant="outlined"
-                label="Email"
-                type="email"
-                fullWidth
-              />
+
+              <FormControl className={classes.textField0} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password" classes={{ root: classes.textField1, shrink: classes.textField3 }} >Email</InputLabel>
+                <OutlinedInput
+                  classes={{ root: classes.textField2 }}
+                  id="outlined-adornment-email"
+                  type={'text'}
+                  value={emailPassChange}
+                  onChange={e => setEmailPassChange(e.target.value)}
+                  label={"Email"}
+
+                />
+              </FormControl>
+
 
               <div className={classes.creatingButtonContainer}>
                 {isLoading ? (
                   <CircularProgress size={26} />
                 ) : (
-                    <Button
-                      // onClick={(e) =>
-                      //   handleEmailConfirm(e)
-                      // }
-                      size="large"
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      className={classes.createAccountButton}
-                      onClick={() => handleChangePassword_Step2(
-                        emailPassChange,
-                        setIsLoading,
-                        setError)}
-                    >
-                      Send Confirmation Email
-                    </Button>
+                  <Button
+                    // onClick={(e) =>
+                    //   handleEmailConfirm(e)
+                    // }
+                    style={{ fontSize: '0.85vw', height: '2.7vw' }}
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    // classes={{ root: classes.loginButton }}
+                    onClick={() => handleChangePassword_Step2(
+                      emailPassChange,
+                      setIsLoading,
+                      setError)}
+                  >
+                    Send Email
+                  </Button>
 
-                  )}
+                )}
               </div>
               <Button
                 color="primary"
@@ -396,82 +369,100 @@ function Login(props) {
               </Typography>
               <Fade in={error}>
                 <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong, please try again
+                  Something is wrong, please try again!
                 </Typography>
               </Fade>
-              <TextField
-                id="securitycode"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                placeholder="Check your email"
-                value={securityCode}
-                onChange={e => setSecurityCode(e.target.value)}
-                margin="normal"
-                variant="outlined"
-                label="Security Code"
-                type="text"
-                fullWidth
-              />
 
-              <TextField
 
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={passwordReg}
-                onChange={e => setPasswordReg(e.target.value)}
-                margin="normal"
-                variant="outlined"
-                label="New Password"
-                type="password"
-                fullWidth
-              />
-              <TextField
-                id="password"
-                InputProps={{
-                  classes: {
-                    underline: classes.textFieldUnderline,
-                    input: classes.textField,
-                  },
-                }}
-                value={confPasswordReg}
-                onChange={e => setConfPasswordReg(e.target.value)}
-                margin="normal"
-                variant="outlined"
-                label="Confirm New Password"
-                type="password"
-                fullWidth
-              />
+              <FormControl className={classes.textField0} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password" classes={{ root: classes.textField1, shrink: classes.textField3 }} >Security Key</InputLabel>
+                <OutlinedInput
+                  classes={{ root: classes.textField2, focused: classes.placeholder }}
+                  id="outlined-adornment-email"
+                  type={'text'}
+                  value={securityCode}
+                  onChange={e => setSecurityCode(e.target.value)}
+                  label={"Security Key"}
+                  placeholder={"Check your email for security key"}
+                />
+              </FormControl>
+
+
+              <FormControl className={classes.textField0} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password" classes={{ root: classes.textField1, shrink: classes.textField3 }}>New Password</InputLabel>
+                <OutlinedInput
+                  classes={{ root: classes.textField2 }}
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={passwordReg}
+                  onChange={e => setPasswordReg(e.target.value)}
+                  label={"New Password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility style={{ height: '1.4vw', width: '1.4vw' }} /> : <VisibilityOff style={{ height: '1.4vw', width: '1.4vw' }} />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+
+              </FormControl>
+
+
+              <FormControl className={classes.textField0} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password" classes={{ root: classes.textField1, shrink: classes.textField3 }}>Confirm New Password</InputLabel>
+                <OutlinedInput
+                  classes={{ root: classes.textField2 }}
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={confPasswordReg}
+                  onChange={e => setConfPasswordReg(e.target.value)}
+                  label={"Confirm New Password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility style={{ height: '1.4vw', width: '1.4vw' }} /> : <VisibilityOff style={{ height: '1.4vw', width: '1.4vw' }} />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+
+              </FormControl>
+
               <div className={classes.creatingButtonContainer}>
                 {isLoading ? (
                   <CircularProgress size={26} />
                 ) : (
-                    <Button
-                      // onClick={() =>
-                      //    handleChangePass()}
+                  <Button
+                    style={{ fontSize: '0.85vw', height: '2.7vw' }}
+                    // onClick={() =>
+                    //    handleChangePass()}
 
-                      size="large"
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      className={classes.createAccountButton}
-                      onClick={() => handleChangePassword_Step3(
-                        securityCode,
-                        passwordReg,
-                        confPasswordReg,
-                        setIsLoading,
-                        setError)}
-                    >
-                      Change Password
-                    </Button>
-                  )}
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    // className={classes.createAccountButton}
+                    onClick={() => handleChangePassword_Step3(
+                      securityCode,
+                      passwordReg,
+                      confPasswordReg,
+                      setIsLoading,
+                      setError)}
+                  >
+                    Change Password
+                  </Button>
+                )}
               </div>
               <Button
                 color="primary"

@@ -205,7 +205,7 @@ export default makeStyles(theme => ({
   textField4: {
     width: '1vw !imprtant'
   },
-  placeholder:{
-    fontSize:'0.8vw'
-  }
+placeholder:{
+  fontSize:'0.8vw'
+}
 }));

@@ -73,6 +73,13 @@ function Layout(props) {
               <Route path="/app/users" component={Users} />
               <Route path="/app/measurements" component={Sites} />
               <Route path="/app/systems" component={Systems} />
+              <Route
+                exact
+                path="/app/settings"
+                render={() => <Redirect to="/app/settings/sites" />}
+              />
+              <Route path="/app/settings/sensorsdevices" component={Sites} />
+              <Route path="/app/settings/sites" component={Sites} />
             </Switch>
           </div>
         </>

@@ -235,11 +235,7 @@ const Sites = () => {
           <div style={{ float: 'right', width: '79%', borderWidth: '0px' }}>
 
             <div className={classes.mapDivStyle} >
-
-
-
               <MapContainer
-
                 center={[49.261405231193415, -123.24899945696026]}
                 zoom={15} scrollWheelZoom={true}
                 style={{
