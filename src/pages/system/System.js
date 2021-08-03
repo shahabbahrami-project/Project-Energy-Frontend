@@ -75,18 +75,18 @@ const System = () => {
     if (flagSensorsType == true) {
       filterSites(filterSite, (isOk, data) => {
         if (!isOk) {
-          return toast.error("Server is not responding for filtering!");
+          // return toast.error("Server is not responding for filtering!");
         } else {
           setSites(data);
           groupByCity(filterSite, (isOk, data1) => {
             if (!isOk) {
-              return toast.error("Server is not responding for grouping!");
+              // return toast.error("Server is not responding for grouping!");
             } else {
               setCities(data1);
               getSensorsType((isOk, data) => {
                 if (!isOk) {
                   return toast.error(
-                    "Server is not responding for sensors types!",
+                    // "Server is not responding for sensors types!",
                   );
                 } else {
                   setSensorsType(data);

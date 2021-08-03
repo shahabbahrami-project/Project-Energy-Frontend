@@ -75,7 +75,7 @@ const FormAddSensor = (props) => {
         else {
           retrieveSensorsList((isOk, data) => {
             if (!isOk) {
-              return toast.error("Server is not responding for getting devices list!");
+              return toast.error("Server is not responding for getting sensors list!");
             }
             else {
               props.setSensors(data)
@@ -92,14 +92,14 @@ const FormAddSensor = (props) => {
 
       const updatedSensor = { name: addSensorTemp.name, type: findSensorTypeID(addSensorTemp.type), user: addSensorTemp.user, lastRealValue: addSensorTemp.lastRealValue, lastAlgoValue: addSensorTemp.lastAlgoValue, lastTimeValue: addSensorTemp.lastTimeValue, created_at: addSensorTemp.created_at }
       console.log(updatedSensor)
-      updateSensor(updatedSensor, deviceID, (isOk, data) => {
+      updateSensor(updatedSensor, sensorID, (isOk, data) => {
         if (!isOk) {
-          return toast.error("Server is not responding for updating device!");
+          return toast.error("Server is not responding for updating sensor!");
         }
         else {
           retrieveSensorsList((isOk, data) => {
             if (!isOk) {
-              return toast.error("Server is not responding for updating devices list!");
+              return toast.error("Server is not responding for updating sensors list!");
             }
             else {
               props.setSensors(data)
@@ -284,6 +284,53 @@ const FormAddSensor = (props) => {
   }
 
 
+
+  const handleEditDeviceButton = (e, index, id) => {
+    setDeviceID(id)
+    setAddDeviceTemp({ name: props.devices[index].name, type: findDeviceParameter(props.devices[index].type), user: props.devices[index].user,  sensors: props.devices[index].sensors, stateReal: props.devices[index].stateReal, stateAlgo: props.devices[index].stateAlgo, lastRealPowerValue: props.devices[index].lastRealPowerValue, lastAlgoPowerValue: props.devices[index].lastAlgoPowerValue, costReal: props.devices[index].costReal, costAlgo: props.devices[index].costAlgo, lastTimeValue: props.devices[index].lastTimeValue,  created_at: props.devices[index].created_at })
+    console.log(props.devices[index].sensors)
+    if (props.devices[index].sensors.length === 0) {
+      setChecked([])
+    }
+    else{
+      const array = props.sensors.map((item, indextmp)=>{if (props.devices[index].sensors.includes(item.id)){
+        return indextmp
+      }})
+      console.log(array)
+      setChecked(array)
+    }
+    setUpdateDeviceIndex(index);
+  }
+
+
+  const handleDeleteDeviceButton = (e, index, id) => {
+    deleteDevice(id, (isOk, data) => {
+      if (!isOk) {
+        return toast.error("Server is not responding for deleting device!");
+      }
+      else {
+        retrieveDevicesList((isOk, data) => {
+          if (!isOk) {
+            return toast.error("Server is not responding for deleting devices list!");
+          }
+          else {
+            props.setDevices(data)
+            return toast.success("Sensors list is imported from database!");
+          }
+        })
+        return toast.success("Sensors list has been updated in database!");
+      }
+    })
+    setAddDeviceTemp({ name: "", type: "", user: user_id, sensors: [], stateReal: "On", stateAlgo: "On", lastRealPowerValue: 12.0, lastAlgoPowerValue: 12.0, costReal: 0, costAlgo: 0, lastTimeValue: dateNow, created_at: dateNow  })
+    setUpdateDeviceIndex(-1)
+  }
+
+
+
+
+
+
+
   function findDeviceParameter(id) {
     var parameter = "";
     props.devicesType.forEach(element => {
@@ -372,10 +419,10 @@ const FormAddSensor = (props) => {
           <Button variant="contained" color="primary" style={{ width: '100%', height: '4vh', fontSize: '0.8vw', minWidth: 0, marginTop: '1.5vh' }}
             onClick={e => retrieveSensorsListHandle(e)}
           >
-            Referesh Sensors List Now!
+            Refresh Sensors List Now!
           </Button>
         </div>
-        <List dense={true}>
+        <List dense={true} style={{maxHeight:"26vw"}}>
           {props.sensors.map((item, index) => (
             <>
               <ListItem label={index}>
@@ -489,7 +536,7 @@ const FormAddSensor = (props) => {
           <Button variant="contained" color="primary" style={{ width: '100%', height: '4vh', fontSize: '0.8vw', minWidth: 0, marginTop: '1.5vh' }}
             onClick={e => retrieveDevicesListHandle(e)}
           >
-            Referesh Devices List Now!
+            Refresh Devices List Now!
          </Button>
         </div>
         <List dense={true}>
@@ -505,10 +552,10 @@ const FormAddSensor = (props) => {
                   secondary={<><Typography style={{ fontSize: '0.6vw' }}>{findDeviceParameter(item.type)} <br /> {convertDate(item.created_at)}  </Typography></>}
                 />
                 <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label={"edit" + String(index)} onClick={e => handleEditSensorButton(e, index, item.id)}>
+                  <IconButton edge="end" aria-label={"edit" + String(index)} onClick={e => handleEditDeviceButton(e, index, item.id)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton edge="end" aria-label={"delete" + String(index)} style={{ marginLeft: '1rem' }} onClick={e => handleDeleteSensorButton(e, index, item.id)}>
+                  <IconButton edge="end" aria-label={"delete" + String(index)} style={{ marginLeft: '1rem' }} onClick={e => handleDeleteDeviceButton(e, index, item.id)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>

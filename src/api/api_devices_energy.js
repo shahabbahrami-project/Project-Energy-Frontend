@@ -50,3 +50,23 @@ export const getDevicesType = (callback) => {
       callback(false, error);
     })
   };
+
+  export const sensorsdata = (historyGraph,callback) => {
+    getAxiosInstanceApiEnergy().post("/api/sites/historydata/", historyGraph)
+      .then(response => {
+        const data = response.data;
+        callback(true, data);
+      }).catch(error => {
+      callback(false, error);
+    })
+  };
+
+  export const sensorsonlinedata = (onlineGraph,callback) => {
+    getAxiosInstanceApiEnergy().post("/api/sites/onlinedata/", onlineGraph)
+      .then(response => {
+        const data = response.data;
+        callback(true, data);
+      }).catch(error => {
+      callback(false, error);
+    })
+  };

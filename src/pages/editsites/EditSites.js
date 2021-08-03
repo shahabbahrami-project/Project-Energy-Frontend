@@ -321,7 +321,7 @@ const EditSites = () => {
         <LinearProgress color="secondary" variant="determinate" value={progress} style={progress < 100 ? { display: 'flex', height: '1vh' } : { display: 'none' }} />
       </div>
 
-      <PageTitle title="Edit Sites" />  {/* Page title on top */}
+      <PageTitle title="Sites & Locations" />  {/* Page title on top */}
       
       
       <div className={classes.wrapperStyle}>

@@ -93,7 +93,7 @@ const Sites = () => {
 
       filterSites(filterSite, (isOk, data) => {
         if (!isOk) {
-          return toast.error("Server is not responding for filtering!");
+          // return toast.error("Server is not responding for filtering!");
         }
         else {
           setSites(data);

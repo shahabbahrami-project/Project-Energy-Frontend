@@ -18,6 +18,8 @@ import { withRouter } from "react-router-dom";
 import classNames from "classnames";
 import AccountTreeRoundedIcon from '@material-ui/icons/AccountTreeRounded';
 import PinDropIcon from '@material-ui/icons/PinDrop';
+import InsertChartOutlinedIcon from '@material-ui/icons/InsertChartOutlined';
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 // styles
 import useStyles from "./styles";
 
@@ -33,16 +35,16 @@ import {
 } from "../../context/LayoutContext";
 
 const structure = [
-  { id: -3, label: "Sites", link: "/app/sites", icon: <PinDropIcon /> },
-  { id: -4, label: "Systems", link: "/app/systems", icon: <AccountTreeRoundedIcon /> },
+  { id: -3, label: "Online Monitoring", link: "/app/onlinemonitoring", icon: <InsertChartOutlinedIcon /> },
+  // { id: -4, label: "Systems", link: "/app/systems", icon: <AccountTreeRoundedIcon /> },
   {
     id: -2,
     label: 'Settings',
     link: '/app/settings',
-    icon: <UIElementsIcon />,
+    icon: <SettingsOutlinedIcon />,
     children: [
-      { label: 'Sensors & Devices', link: '/app/settings/sesnordevice',icon: <AccountTreeRoundedIcon /> },
-      { label: 'Edit Sites', link: '/app/settings/editsites', icon: <PinDropIcon /> },
+      { label: 'Sensors & Devices', link: '/app/settings/sensordevice',icon: <AccountTreeRoundedIcon /> },
+      { label: 'Sites & Locations', link: '/app/settings/editsites', icon: <PinDropIcon /> },
     ],
   },
   // { id: -2, label: "Users ", link: "/app/users", icon: <PeopleAltRoundedIcon /> },

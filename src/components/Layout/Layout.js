@@ -23,6 +23,7 @@ import Users from "../../pages/users/Users";
 import Sites from "../../pages/sites/Sites";
 import EditSites from "../../pages/editsites/EditSites";
 import Systems from "../../pages/system/System";
+import Onlinemonitoring from "../../pages/onlinemonitoring/OnlineMonitoring";
 import EditSensorDevices from "../../pages/sensors&devices/EditSensorDevices";
 
 function Layout(props) {
@@ -43,8 +44,8 @@ function Layout(props) {
           >
             <div className={classes.fakeToolbar} />
             <Switch>
-              <Route path="/app/sites" component={Sites} />
-              <Route path="/app/systems" component={Systems} />
+              <Route path="/app/onlinemonitoring" component={Onlinemonitoring} /> 
+              {/* <Route path="/app/systems" component={Systems} /> */}
               <Route
                 exact
                 path="/app/settings"

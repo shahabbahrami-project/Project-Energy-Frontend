@@ -2,14 +2,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 export default makeStyles(theme => ({
   accordionRoot: {
-    height:'33vw'
+    height:'38vw'
   },
 
   root: {
     width: '100%',
     marginBottom: '2rem',
     borderRadius: '1rem',
-    height:'400vw'
+    height:'450vw'
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),

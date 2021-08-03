@@ -302,7 +302,7 @@ const FormAddSite = (props) => {
           <Button variant="contained" color="primary" style={{ width: '100%', height: '4vh', fontSize: '0.8vw', minWidth: 0, marginTop: '1.5vh' }}
             onClick={e => retrieveSensorsListHandle(e)}
           >
-            Referesh Sensors List Now!
+            Refresh Sensors List Now!
          </Button>
         </div>
         <List dense className={classes.rootDevices} >
@@ -339,7 +339,7 @@ const FormAddSite = (props) => {
           <Button variant="contained" color="primary" style={{ width: '100%', height: '4vh', fontSize: '0.8vw', minWidth: 0, marginTop: '1.5vh' }}
             onClick={e => retrieveDevicesListHandle(e)}
           >
-            Referesh Devices List Now!
+            Refresh Devices List Now!
          </Button>
         </div>
         <List dense className={classes.rootDevices} >

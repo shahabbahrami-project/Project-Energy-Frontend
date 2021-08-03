@@ -3,12 +3,12 @@ import { getAxiosInstanceApiEnergy } from "./api";
 
 export const addSite = (site, callback) => {
   let form_data = new FormData();
-  if (site.image != null) {
-    form_data.append('image', site.image, site.image.name);
-  }
-  else {
-    form_data.append('image', site.image, null);
-  }
+  // if (site.image != null) {
+  //   form_data.append('image', site.image, site.image.name);
+  // }
+  // else {
+  //   form_data.append('image', site.image, null);
+  // }
 
   form_data.append('name', site.name);
   form_data.append('link', site.link);
@@ -20,6 +20,7 @@ export const addSite = (site, callback) => {
   form_data.append('user', site.user);
   form_data.append('created_at', site.created_at);
 
+  console.log('form data', form_data)
   getAxiosInstanceApiSiteEnergy().post("/api/sites/sites/", form_data)
     .then(response => {
       const data = response.data;

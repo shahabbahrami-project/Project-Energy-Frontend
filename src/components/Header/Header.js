@@ -117,38 +117,38 @@ export default function Header(props) {
   function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
   }
-  useEffect(() => {
-    getAllSites((isOk, data) => {
-      if (!isOk) {
-        return toast.error("Server is not responding for filtering!");
-      }
-      else {
-        var siteListLeft = {}
-        const siteNames = data.map(item => siteListLeft[String(item.siteName) + " (" + String(item.city) + ")"] = item.id)
-        const userID = localStorage.getItem("user_id")
-        getOneUserApi(userID, (isOk, data) => {
-          if (!isOk) {
-            toast.error("Server is not responding for User Information!")
-          }
-          else {
+  // useEffect(() => {
+  //   getAllSites((isOk, data) => {
+  //     if (!isOk) {
+  //       return toast.error("Server is not responding for filtering!");
+  //     }
+  //     else {
+  //       var siteListLeft = {}
+  //       const siteNames = data.map(item => siteListLeft[String(item.siteName) + " (" + String(item.city) + ")"] = item.id)
+  //       const userID = localStorage.getItem("user_id")
+  //       getOneUserApi(userID, (isOk, data) => {
+  //         if (!isOk) {
+  //           toast.error("Server is not responding for User Information!")
+  //         }
+  //         else {
             
-            toast.success("User Information is received from database!")
-            const arrayObserver = data.observerInSiteIds.split(',').map(Number);
-            const siteObserList = arrayObserver.map(item => getKeyByValue(siteListLeft, item))
-            setObserver(siteObserList);
-            setName(data.fullName)
-            const arrayOperator = data.operatorInSiteIds.split(',').map(Number);
-            const siteOperList = arrayOperator.map(item => getKeyByValue(siteListLeft, item))
-            setOperator(siteOperList);
+  //           toast.success("User Information is received from database!")
+  //           const arrayObserver = data.observerInSiteIds.split(',').map(Number);
+  //           const siteObserList = arrayObserver.map(item => getKeyByValue(siteListLeft, item))
+  //           setObserver(siteObserList);
+  //           setName(data.fullName)
+  //           const arrayOperator = data.operatorInSiteIds.split(',').map(Number);
+  //           const siteOperList = arrayOperator.map(item => getKeyByValue(siteListLeft, item))
+  //           setOperator(siteOperList);
 
-          }
-        }
-        )
+  //         }
+  //       }
+  //       )
 
 
-      }
-    })
-  }, [pageload])
+  //     }
+  //   })
+  // }, [pageload])
 
 
 
@@ -243,7 +243,7 @@ export default function Header(props) {
       console.log(userID)
       getOneUserApi(userID, (isOk, data) => {
         if (!isOk) {
-          toast.error("Server is not responding for profile picture!")
+          // toast.error("Server is not responding for profile picture!")
           return "/images/bill.jpg"
         }
         else {
