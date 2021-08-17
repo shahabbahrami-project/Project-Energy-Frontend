@@ -61,6 +61,7 @@ const SensorsListRight = (props) => {
 
   const Train = (e, id, name, sensors, type) => {
     const newdevice = { ...props.clickedDevice, id: id, name: name, sensors: sensors, type:type }
+    console.log(newdevice);
     props.setClickedDevice(newdevice)
     props.setOpenTrainModal(true);
     console.log("Open Traning Modal for device", id);
